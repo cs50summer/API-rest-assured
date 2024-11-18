@@ -6,11 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
-// import static io.restassured.RestAssured.when;
-// import static jdk.internal.org.jline.utils.Colors.s;
-
-
-/*import static sun.net.InetAddressCachePolicy.get;*/
 
 public class Apitests {
 
@@ -22,9 +17,6 @@ public class Apitests {
         io.restassured.response.ValidatableResponse response =given().when().get(endpoint).then();
         // ValidatableResponse body = response.log().body();
         response.log().body();
-
-        //var response: ValidatableResponse = given().when().get(endpoint).then();
-        /*:ValidatableResponse = given().when().get(endpoint).then(); */
     }
 
     @Test
@@ -37,7 +29,4 @@ public class Apitests {
                         get(endpoint).then();
         response.log().body();
     }
-
-
-
 }
