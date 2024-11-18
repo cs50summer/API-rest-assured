@@ -29,4 +29,17 @@ public class Apitests {
                         get(endpoint).then();
         response.log().body();
     }
+
+    @Test
+    public void createProduct(){
+        String endpoint ="http://localhost:80/api_testing/product/create.php";
+        String body = """
+                { "name":"Water Bottle",
+                  "description":"Blue in color . Holds 64oz of water"
+                  "price": 50
+                  "category_id":3
+                }""" ;
+        var response = given().body(body).when().post(endpoint).then();
+        response.log().body();
+    }
 }
