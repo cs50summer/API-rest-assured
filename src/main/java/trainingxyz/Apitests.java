@@ -2,6 +2,7 @@ package trainingxyz;
 
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
+import models.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
@@ -15,7 +16,6 @@ public class Apitests {
     public void getCategories(){
         String endpoint ="http://localhost:80/api_testing/category/read.php";
         io.restassured.response.ValidatableResponse response =given().when().get(endpoint).then();
-        // ValidatableResponse body = response.log().body();
         response.log().body();
     }
 
@@ -35,9 +35,9 @@ public class Apitests {
         String endpoint ="http://localhost:80/api_testing/product/create.php";
         String body = """
                 { "name":"Water Bottle",
-                  "description":"Blue in color . Holds 64oz of water"
-                  "price": 15
-                  "category_id":19
+                  "description":"Blue in color . Holds 64oz of water",
+                  "price": 15,
+                  "category_id":19,
                 }""" ;
         var response = given().body(body).when().post(endpoint).then();
         response.log().body();
@@ -65,5 +65,20 @@ public class Apitests {
                 """;
         var response = given().body(body).when().delete(endpoint).then();
         response.log().body();
+    }
+
+    @Test
+    public void createSerializedProduct(){
+        String endpoint ="http://localhost:80/api_testing/product/create.php";
+        Product product= new Product(
+                "Water Bottle",
+                "Blue , 64 oz",
+                12,
+                3
+                );
+        var response = given().body(product).when().post(endpoint).then();
+        response.log().body();
+
+
     }
 }
