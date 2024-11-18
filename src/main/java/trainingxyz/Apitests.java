@@ -37,7 +37,7 @@ public class Apitests {
                 { "name":"Water Bottle",
                   "description":"Blue in color . Holds 64oz of water"
                   "price": 15
-                  "category_id":3
+                  "category_id":19
                 }""" ;
         var response = given().body(body).when().post(endpoint).then();
         response.log().body();
@@ -51,9 +51,19 @@ public class Apitests {
                 "name":"Water Bottle"
                 "description":"Blue in color . Holds 64oz of water"
                 "price": 25,
-                "category_id":3
+                "category_id":19
                 """;
         var response = given().body(body).when().put(endpoint).then();
+        response.log().body();
+    }
+
+    @Test
+    public void deleteProduct(){
+        String endpoint ="http://localhost:80/api_testing/product/delete.php";
+        String body= """
+                "id":18
+                """;
+        var response = given().body(body).when().delete(endpoint).then();
         response.log().body();
     }
 }
