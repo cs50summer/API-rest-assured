@@ -42,4 +42,18 @@ public class Apitests {
         var response = given().body(body).when().post(endpoint).then();
         response.log().body();
     }
+
+    @Test
+    public void updateProduct(){
+        String endpoint ="http://localhost:80/api_testing/product/update.php";
+        String body= """
+                "id":3
+                "name":"Water Bottle"
+                "description":"Blue in color . Holds 64oz of water"
+                "price": 50,
+                "category_id":3
+                """;
+        var response = given().body(body).when().put(endpoint).then();
+        response.log().body();
+    }
 }
