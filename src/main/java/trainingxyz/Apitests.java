@@ -36,7 +36,7 @@ public class Apitests {
         String body = """
                 { "name":"Water Bottle",
                   "description":"Blue in color . Holds 64oz of water"
-                  "price": 50
+                  "price": 15
                   "category_id":3
                 }""" ;
         var response = given().body(body).when().post(endpoint).then();
@@ -50,7 +50,7 @@ public class Apitests {
                 "id":3
                 "name":"Water Bottle"
                 "description":"Blue in color . Holds 64oz of water"
-                "price": 50,
+                "price": 25,
                 "category_id":3
                 """;
         var response = given().body(body).when().put(endpoint).then();
