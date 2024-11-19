@@ -10,7 +10,8 @@ public class Product {
     public Product() {}
 
     //Used for POST requests
-    public Product(String name, String description, double price , int category_id) {
+    public Product(int id ,String name, String description, double price , int category_id) {
+        setId(id);
         setName(name);
         setDescription(description);
         setPrice(price);
@@ -18,8 +19,8 @@ public class Product {
     }
 
     //Used for PUT requests
-    public Product(int id, String name, String description, double price , int category_id) {
-        setId(id);
+    public Product( String name, String description, double price , int category_id) {
+        //setId(id);
         setName(name);
         setDescription(description);
         setPrice(price);
