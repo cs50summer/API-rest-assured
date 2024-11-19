@@ -6,16 +6,18 @@ public class Product {
     private String description;
     private double price;
     private int category_id;
+    private String category_name;
 
     public Product() {}
 
     //Used for POST requests
-    public Product(int id ,String name, String description, double price , int category_id) {
+    public Product(int id ,String name, String description, double price , int category_id , String category_name) {
         setId(id);
         setName(name);
         setDescription(description);
         setPrice(price);
         setCategory_id(category_id);
+        setCategory_name(category_name);
     }
 
     //Used for PUT requests
@@ -70,6 +72,9 @@ public class Product {
         this.id = id;
     }
 
+    public void setCategory_name(String category_name) {
+        this.category_name=category_name;
+    }
 
 
 }
