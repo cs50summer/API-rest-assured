@@ -3,10 +3,13 @@ package trainingxyz;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import models.Product;
+import org.hamcrest.Matchers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
+//import static sun.jvm.hotspot.utilities.AddressOps.greaterThan;
 
 public class Apitests {
 
@@ -37,7 +40,7 @@ public class Apitests {
                 { "name":"Water Bottle",
                   "description":"Blue in color . Holds 64oz of water",
                   "price": 15,
-                  "category_id":19,
+                  "category_id":3,
                 }""" ;
         var response = given().body(body).when().post(endpoint).then();
         response.log().body();
@@ -61,7 +64,7 @@ public class Apitests {
     public void deleteProduct(){
         String endpoint ="http://localhost:80/api_testing/product/delete.php";
         String body= """
-                "id":18
+                "id":1000
                 """;
         var response = given().body(body).when().delete(endpoint).then();
         response.log().body();
@@ -128,5 +131,41 @@ public class Apitests {
                 """;
         var response = given().body(body).when().delete(endpoint).then();
         response.log().body();
+    }
+
+    @Test
+    public void responseChecks(){
+        String endpoint ="http://localhost:80/api_testing/product/read_one.php";
+
+         given().
+                queryParam("id", 2).
+                when().
+                get(endpoint).then().assertThat().
+                 statusCode(200).
+                 body("id", equalTo("2")).
+                 body("name",equalTo("Cross-Back Training Tank"));
+
+    }
+
+    @Test
+    public void responseBodyValidations(){
+        String endpoint ="http://localhost:80/api_testing/product/read.php";
+
+        given().when().
+                get(endpoint).
+                then().
+                log().
+                body().
+                assertThat().
+                statusCode(200).
+                body("records.size()", greaterThanOrEqualTo(0)).
+                body("records.id", everyItem(notNullValue())).
+                body("records.name",everyItem(notNullValue())).
+                body("records.description",everyItem(notNullValue())).
+                body("records.price",everyItem(notNullValue())).
+                body("records.category_id",everyItem(notNullValue())).
+                body("records.category_name",everyItem(notNullValue())).body("records.id[0]",equalTo(1002));
+
+
     }
 }
